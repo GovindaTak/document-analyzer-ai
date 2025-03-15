@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Analizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Document Analizer</h1>
+        <input type="file" id="fileInput" accept=".pdf,.docx,.txt">
+        <input type="text" id="questionInput" placeholder="Ask a question about the file">
+        <button onclick="submitQuestion()">Submit</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        async function submitQuestion() {
+            const fileInput = document.getElementById('fileInput');
+            const questionInput = document.getElementById('questionInput');
+            const output = document.getElementById('output');
+
+            if (!fileInput.files[0] || !questionInput.value.trim()) {
+                output.innerText = 'Please upload a file and enter a question.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('question', questionInput.value.trim());
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                output.innerText = data.answer || 'No answer found.';
+            } catch (error) {
+                output.innerText = 'An error occurred. Please try again.';
+            }
+        }
+    </script>
+</body>
+</html>
