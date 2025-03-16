@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Analizer</title>
+    <title>Document Analyzer AI</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        input[type="file"], input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #output {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-    </style>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Document Analizer</h1>
+        <h1>Document Analyzer AI</h1>
         <input type="file" id="fileInput" accept=".pdf,.docx,.txt">
         <input type="text" id="questionInput" placeholder="Ask a question about the file">
-        <button onclick="submitQuestion()">Submit</button>
+        <button id="submitButton" onclick="submitQuestion()" disabled>Submit</button>
         <div id="output"></div>
+
+        <!-- Action Buttons with Icons -->
+        <div class="action-buttons">
+            <button id="copyButton" class="copy" disabled><i class="fas fa-copy"></i> Copy</button>
+            <button id="regenerateButton" class="regenerate" disabled><i class="fas fa-sync-alt"></i> Regenerate</button>
+            <button id="likeButton" class="like" disabled><i class="fas fa-thumbs-up"></i> Like</button>
+            <button id="dislikeButton" class="dislike" disabled><i class="fas fa-thumbs-down"></i> Dislike</button>
+            <button id="newChatButton" class="new-chat" disabled><i class="fas fa-comment-alt"></i> New Chat</button>
+        </div>
     </div>
 
     <script>
+        const fileInput = document.getElementById('fileInput');
+        const submitButton = document.getElementById('submitButton');
+        const copyButton = document.getElementById('copyButton');
+        const regenerateButton = document.getElementById('regenerateButton');
+        const likeButton = document.getElementById('likeButton');
+        const dislikeButton = document.getElementById('dislikeButton');
+        const newChatButton = document.getElementById('newChatButton');
+        const output = document.getElementById('output');
+
+        // Function to enable/disable buttons based on file input
+        function toggleButtons() {
+            if (fileInput.files.length > 0) {
+                submitButton.disabled = false;
+                copyButton.disabled = false;
+                regenerateButton.disabled = false;
+                likeButton.disabled = false;
+                dislikeButton.disabled = false;
+                newChatButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+                copyButton.disabled = true;
+                regenerateButton.disabled = true;
+                likeButton.disabled = true;
+                dislikeButton.disabled = true;
+                newChatButton.disabled = true;
+            }
+        }
+
+        // Add event listener to file input
+        fileInput.addEventListener('change', toggleButtons);
+
         async function submitQuestion() {
-            const fileInput = document.getElementById('fileInput');
             const questionInput = document.getElementById('questionInput');
-            const output = document.getElementById('output');
 
             if (!fileInput.files[0] || !questionInput.value.trim()) {
-                output.innerText = 'Please upload a file and enter a question.';
+                alert('Please upload a file and enter a question.');
                 return;
             }
 
@@ -75,8 +77,10 @@
                 });
                 const data = await response.json();
                 output.innerText = data.answer || 'No answer found.';
+                output.classList.add('visible'); // Show the output box
             } catch (error) {
                 output.innerText = 'An error occurred. Please try again.';
+                output.classList.add('visible'); // Show the output box
             }
         }
     </script>
