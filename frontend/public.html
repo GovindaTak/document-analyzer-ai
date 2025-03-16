@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepSeek-like Web Page</title>
+    <title>Document Analyzer AI</title>
     <link rel="stylesheet" href="styles.css">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>DeepSeek-like Web Page</h1>
+        <h1>Document Analyzer AI</h1>
         <input type="file" id="fileInput" accept=".pdf,.docx,.txt">
         <input type="text" id="questionInput" placeholder="Ask a question about the file">
         <button id="submitButton" onclick="submitQuestion()" disabled>Submit</button>
@@ -34,6 +34,7 @@
         const likeButton = document.getElementById('likeButton');
         const dislikeButton = document.getElementById('dislikeButton');
         const newChatButton = document.getElementById('newChatButton');
+        const output = document.getElementById('output');
 
         // Function to enable/disable buttons based on file input
         function toggleButtons() {
@@ -59,10 +60,9 @@
 
         async function submitQuestion() {
             const questionInput = document.getElementById('questionInput');
-            const output = document.getElementById('output');
 
             if (!fileInput.files[0] || !questionInput.value.trim()) {
-                output.innerText = 'Please upload a file and enter a question.';
+                alert('Please upload a file and enter a question.');
                 return;
             }
 
@@ -77,8 +77,10 @@
                 });
                 const data = await response.json();
                 output.innerText = data.answer || 'No answer found.';
+                output.classList.add('visible'); // Show the output box
             } catch (error) {
                 output.innerText = 'An error occurred. Please try again.';
+                output.classList.add('visible'); // Show the output box
             }
         }
     </script>
