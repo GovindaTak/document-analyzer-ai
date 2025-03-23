@@ -1,46 +1,46 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #121212; /* Dark background */
-    color: #ffffff; /* White text */
+    background-color: #f5f5f5; /* Light background */
+    color: #333; /* Dark text */
     line-height: 1.6;
 }
 
 .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 50px auto;
-    padding: 20px;
-    background-color: #1e1e1e; /* Slightly lighter dark container */
+    padding: 30px;
+    background-color: #ffffff; /* White container */
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
 h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #333;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Input Fields */
 input[type="file"], input[type="text"] {
-    width: 90%;
+    width: 100%;
     padding: 12px;
     margin-bottom: 15px;
-    border: 2px solid #333;
+    border: 2px solid #ccc;
     border-radius: 8px;
-    background-color: #2c2c2c; /* Dark input background */
-    color: #ffffff; /* White text */
+    background-color: #ffffff; /* White input background */
+    color: #333; /* Dark text */
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 input[type="file"]:focus, input[type="text"]:focus {
     border-color: #007BFF;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.1);
     outline: none;
 }
 
@@ -50,7 +50,7 @@ button {
     margin: 10px 5px;
     border: none;
     border-radius: 8px;
-    background: linear-gradient(135deg, #007BFF, #0056b3); /* Gradient background */
+    background-color: #007BFF; /* Blue background */
     color: white;
     font-size: 1rem;
     cursor: pointer;
@@ -59,22 +59,22 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.1);
 }
 
 button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.1);
 }
 
 /* Output Section */
 #output {
     margin-top: 20px;
     padding: 15px;
-    border: 2px solid #333;
+    border: 2px solid #ccc;
     border-radius: 8px;
-    background-color: #2c2c2c; /* Dark output background */
-    color: #ffffff; /* White text */
+    background-color: #ffffff; /* White output background */
+    color: #333; /* Dark text */
     font-size: 1.1rem;
     min-height: 50px;
     display: flex;
@@ -84,7 +84,7 @@ button:active {
 }
 
 #output:hover {
-    background-color: #3a3a3a; /* Slightly lighter on hover */
+    background-color: #f7f7f7; /* Slightly lighter on hover */
 }
 
 /* File Input Customization */

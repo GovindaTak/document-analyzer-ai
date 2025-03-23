@@ -24,21 +24,24 @@ app.post('/ask', upload.single('file'), async (req, res) => {
         const fileExtension = path.extname(req.file.originalname).toLowerCase();
         let text = '';
 
-        if (fileExtension === '.pdf') {
-            const pdfBytes = fs.readFileSync(filePath);
-            const pdfDoc = await PDFDocument.load(pdfBytes);
-            const pages = pdfDoc.getPages();
-            text = pages.map(page => page.getTextContent().then(textContent => 
-                textContent.items.map(item => item.str).join(' ')
-            )).join(' ');
-        }
-         else if (fileExtension === '.docx') {
-            const result = await mammoth.extractRawText({ path: filePath });
-            text = result.value;
-        } else if (fileExtension === '.txt') {
-            text = fs.readFileSync(filePath, 'utf8');
-        } else {
-            return res.status(400).json({ error: 'Unsupported file type.' });
+        switch (fileExtension) {
+            case '.pdf':
+                const pdfBytes = fs.readFileSync(filePath);
+                const pdfDoc = await PDFDocument.load(pdfBytes);
+                const pages = pdfDoc.getPages();
+                text = pages.map(page => page.getTextContent().then(textContent => 
+                    textContent.items.map(item => item.str).join(' ')
+                )).join(' ');
+                break;
+            case '.docx':
+                const result = await mammoth.extractRawText({ path: filePath });
+                text = result.value;
+                break;
+            case '.txt':
+                text = fs.readFileSync(filePath, 'utf8');
+                break;
+            default:
+                return res.status(400).json({ error: 'Unsupported file type.' });
         }
 
         // Use OpenAI to answer the question
